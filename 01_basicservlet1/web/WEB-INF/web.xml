@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <display-name>01_basicservlet1</display-name>
+ <!-- 작성한 서블릿 클래스를 등록 
+ 	servlet 태그에 servlet-name 설정, servlet-class 설정
+ 	<servlet-name> : web.xml 내부에서 서블릿을 부르는 명칭
+ 	<servlet-class> : 작성한 서블릿 클래스, 패키지까지 다 작성
+ -->
+ <servlet>
+ 	<servlet-name>first</servlet-name>
+ 	<servlet-class>com.basictest.controller.FirstServlet</servlet-class>
+ </servlet>
+ 
+	<!-- 등록한 서블릿을 주소와 연결(mapping)시켜준다
+		<servlet-mapping>태그 내부<servlet-name>설정,<url-pattern>설정
+		<url-patter>  url에 적힌 주소값 localhost:9090/
+	 -->
+  <servlet-mapping>
+  	<servlet-name>first</servlet-name>
+  	<url-pattern>/first.do</url-pattern>
+  </servlet-mapping>
+  
+  <!-- <servlet>
+  	<servlet-name>second</servlet-name>
+  	<servlet-class>com.basictest.controller.SecondServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>second</servlet-name>
+  	<url-pattern>/second.do</url-pattern>
+  </servlet-mapping> -->
+  
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>main.html</welcome-file>
+  </welcome-file-list>
+</web-app>

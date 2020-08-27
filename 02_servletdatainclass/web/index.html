@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>get방식과 post방식으로 데이터 전송하기</h1>
+	<fieldset>
+		<legend>get방식 전송</legend>
+		<form action="loginGet.do" method="get">
+			아이디 <input type="text" name="id"><br>
+			패스워드 <input type="password" name="password"><br>
+			<input type="submit" value="로그인">
+			<input type="reset" value="취소">
+		</form>
+	</fieldset>
+	<hr>
+	<fieldset>
+		<legend>post방식 전송</legend>
+		<form action="loginGet.do" method="post">
+			아이디 <input type="text" name="id"><br>
+			패스워드 <input type="password" name="password"><br>
+			<input type="submit" value="로그인">
+			<input type="reset" value="취소">
+		</form>
+	</fieldset>
+	<hr>
+	<h3>클라이언트가 보내는 파라미터 처리하기</h3>
+	<a href="views/testPerson.html">개인취향테스트</a><br>
+	<a href="views/testPerson2.html">개인취향테스트2 - request</a><br>
+	<a href="views/testPerson3.html">개인취향 sendRedirect</a><br>
+	<a href="shareData.do">공유객체 데이터 확인하기</a><br>
+	<a href="initServlet.do">초기값 확인하기</a>
+</body>
+</html>
