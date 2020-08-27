@@ -1,0 +1,8 @@
+.metadata/.plugins/org.eclipse.oomph.setup/workspace.setup
+.metadata/.log
+*.class
+*.zip
+.metadata
+.apache-tomcat-8.5.57/backup
+.apache-tomcat-8.5.57/bin
+
