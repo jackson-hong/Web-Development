@@ -26,14 +26,14 @@
 	}
 
 %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
+<%@ include file="/views/common/header.jsp" %>
+<section>
     <h1>나의 첫 jsp페이지</h1>
     <p>Welcome to JSP</p>
-</body>
-</html>
+    <a href="adbc.do">없는 페이지로 이동</a>
+    <h3>등록 된 사람 : <%= p %></h3>
+    <h3>스크립트립 이용해서 java 코드 작성하기</h3>
+    <a href="views/contents.jsp">스크립트릿test</a>
+</section>
+<%@ include file="/views/common/footer.jsp" %>

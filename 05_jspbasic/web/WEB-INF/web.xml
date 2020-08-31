@@ -9,4 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/views/error/404Page.jsp</location>
+  </error-page>
+  <error-page>
+  	<exception-type>java.lang.ArrayIndexOutOfException</exception-type>
+  	<location>/views/error/404page.jsp</location>
+  </error-page>
 </web-app>
