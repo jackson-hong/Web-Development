@@ -1,5 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.member.model.vo.Member" %>
+<%@ page import="com.kh.common.listener.LoginCheckListener" %>
+<%
+	/* request 객체에서 값 가져오기 */
+	Member logginedMember = (Member)session.getAttribute("logginedMember");
+	int connectCount = LoginCheckListener.getConnectCount();
+	//쿠키값 받아오기!
+	Cookie[] cookies = request.getCookies();
+	String saveId = null;
+	if(cookies!=null){
+		for(Cookie c : cookies){
+			if(c.getName().equals("saveId")){
+				saveId=c.getValue();
+				break;
+			}
+		}
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,11 +32,13 @@ type="text/css">
 	<header>
 		<h1>Hello MVC</h1>
 		<div class="login-container">
+		<%if(logginedMember == null){ %>
 			<form id="loginFrm" action="<%= request.getContextPath() %>/login" method="post">
 				<table>
 					<tr>
 						<td>
-							<input type="text" name="userId" id="userId" placeholder="아이디">
+							<input type="text" name="userId" id="userId" placeholder="아이디"
+							value="<%= saveId!=null?saveId:"" %>">
 						</td>
 						<td></td>
 					</tr>
@@ -32,13 +52,32 @@ type="text/css">
 					</tr>
 					<tr>
 						<td colspan="2">
-							<input type="checkbox" name="saveId" id="saveId">
+							<% System.out.println(saveId); %>
+							<input type="checkbox" name="saveId" id="saveId" <%= saveId!=null?"checked":"" %>>
 							<label for="saveId">아이디저장</label>
-							<input type="button" value="회원가입">
+							<input type="button" value="회원가입" onclick="location.replace('<%= request.getContextPath() %>/enrollMember')">
 						</td>
 					</tr>
 				</table>
 			</form>
+		<% }else { %>
+		<table id="logged-in">
+			<tr>
+				<td colspan="2">
+					<%= logginedMember.getUserName()  %>님, 안녕하세요
+					<span><small>접속자수 : <%= connectCount  %></small></span>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" value="내정보보기">
+				</td>
+				<td>
+					<input type="button" value="로그아웃" onclick="location.replace('<%= request.getContextPath() %>/logout');">
+				</td>
+			</tr>
+		</table>
+		<%} %>
 		</div>
 		<nav>
 			<ul class="main-nav">
