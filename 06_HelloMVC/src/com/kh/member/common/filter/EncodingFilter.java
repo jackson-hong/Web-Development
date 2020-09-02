@@ -1,4 +1,4 @@
-package com.kh.common;
+package com.kh.member.common.filter;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class EncodingFilter
  */
-@WebFilter("/EncodingFilter")
+@WebFilter("/*") //맵핑값 전체
 public class EncodingFilter implements Filter {
 
     /**

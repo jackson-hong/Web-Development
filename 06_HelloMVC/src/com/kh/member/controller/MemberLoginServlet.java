@@ -36,11 +36,9 @@ public class MemberLoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String id = request.getParameter("userId");
 		String pw = request.getParameter("password");
-		System.out.println(id + " : " + pw);
 		
 		//아이디 저장 로직 구성하기 -> cookie를 이용
 		String saveId = request.getParameter("saveId");
-		System.out.println("saveId : " + saveId);
 		
 		//value값을 설정하지 않았을 때 check을 하지 않으면 null 하면 on
 		
@@ -62,7 +60,6 @@ public class MemberLoginServlet extends HttpServlet {
 		//그 결과를 가져오는 것
 		
 		Member m = new MemberService().loginMember(id, pw);
-		System.out.println(m);
 		
 		//m 이 null 이면 로그인 실패
 		//m 이 null이 아니면 로그인 성공

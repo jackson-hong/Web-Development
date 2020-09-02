@@ -70,7 +70,9 @@ type="text/css">
 			</tr>
 			<tr>
 				<td>
-					<input type="button" value="내정보보기">
+				<!-- 쿼리스트링방식으로 데이터를 전송하고 확인하기 -->
+					<input type="button" value="내정보보기"
+						onclick="location.href='<%= request.getContextPath() %>/memberView?userId=<%= logginedMember.getUserId() %>'">
 				</td>
 				<td>
 					<input type="button" value="로그아웃" onclick="location.replace('<%= request.getContextPath() %>/logout');">
