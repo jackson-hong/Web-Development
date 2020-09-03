@@ -20,7 +20,7 @@
 %>
 <section id="enroll-container">
 	<h2>회원정보수정</h2>
-	<form id="memberFrm" method="post">
+	<form action="<%= request.getContextPath() %>" id="memberFrm" method="post">
 			<table>
 			<tr>
                 <th>아이디</th>
@@ -29,7 +29,7 @@
                     name="userId" id="userId_" readonly value="<%=m.getUserId()%>">
                 </td>
             </tr>
-            <tr>
+            <%-- <tr>
                 <th>패스워드</th>
                 <td>
                     <input type="password" name="password" id="password_" required
@@ -39,7 +39,7 @@
             <tr>
                 <th>패스워드확인</th>
                 <td><input type="password" id="password_2" value="<%=m.getPassword()%>"></td>
-            </tr>
+            </tr> --%>
             <tr>
                 <th>이름</th>
                 <td>
@@ -106,10 +106,21 @@
                 </td>
             </tr>
         </table>
+        <button type="button" onclick="fn_update_password();">비밀번호변경</button> <!-- submit 역할까지 한다 -->
+        <!--  폼 안에 버튼이 있을 경우 type을 button으로 설정해주지 않으면 submit이 된다 -->
         <input type="button" onclick="fn_update_submit();" value="정보수정">
         <input type="button" onclick="fn_delete_member();" value="탈퇴">
 	</form>
 	<script>
+		function fn_update_password(){
+			//1. 비밀번호 변경창을 열고
+			const url="<%= request.getContextPath() %>/updatePassword?userId="+$("#userId_").val();
+			const status = "left=500px, top=200px, width=400px, height=210px";
+			
+			open(url,"",status);
+			//2. 비밀번호 수정하기
+		}
+		
 		function fn_delete_member(){
 			//id 서버에 전송해서 그 id랑 일치하는 회원을 삭제
 			<%-- <%= logginedMember.getUserId() %> --%>

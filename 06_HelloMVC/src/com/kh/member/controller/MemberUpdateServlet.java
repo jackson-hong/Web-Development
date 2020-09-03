@@ -32,7 +32,6 @@ public class MemberUpdateServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		Member m = new Member();
 		m.setUserId(request.getParameter("userId"));
-		m.setPassword(request.getParameter("password"));
 		m.setUserName(request.getParameter("userName"));
 		m.setGender(request.getParameter("gender"));
 		m.setAge(Integer.parseInt(request.getParameter("age")));

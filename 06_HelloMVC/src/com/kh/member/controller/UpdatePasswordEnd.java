@@ -1,33 +1,26 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.common.AESCrypto;
 import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberViewServlet
+ * Servlet implementation class UpdatePasswordEnd
  */
-@WebServlet("/memberView")
-public class MemberViewServlet extends HttpServlet {
+@WebServlet(name="updatePassword", urlPatterns="/updatePasswordEnd")
+public class UpdatePasswordEnd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberViewServlet() {
+    public UpdatePasswordEnd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,23 +30,20 @@ public class MemberViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// 클라이언트가 보낸 데이터를 받아서
-		// 그 데이터(userId)와 일치하는 회원을 페이지에 전달해줌
-		String userId = request.getParameter("userId");
-		Member m = new MemberService().selectMember(userId);
-		
-		String email = m.getEmail();
-		String phone = m.getPhone();
-		try {
-			m.setEmail(AESCrypto.decrypt(email));
-			m.setPhone(AESCrypto.decrypt(phone));
-		} catch (Exception e) {
-			e.printStackTrace();
+		System.out.println(request.getParameter("userId") + request.getParameter("password"));
+		int result = new MemberService().updatePassword(request.getParameter("userId"), request.getParameter("password"));
+		String msg = "";
+		String loc = "/";
+		if(result > 0) {
+			msg = "비밀번호 변경에 성공했습니다!";
+		}else {
+			msg = "비밀번호 변경에 실패했습니다.";
+			loc = "/updatePassword";
 		}
-		
-		request.setAttribute("member", m);
-		
-		request.getRequestDispatcher("/views/member/memberView.jsp").forward(request, response);
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.setAttribute("script", "self.close();");
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 
 	/**

@@ -52,7 +52,6 @@ type="text/css">
 					</tr>
 					<tr>
 						<td colspan="2">
-							<% System.out.println(saveId); %>
 							<input type="checkbox" name="saveId" id="saveId" <%= saveId!=null?"checked":"" %>>
 							<label for="saveId">아이디저장</label>
 							<input type="button" value="회원가입" onclick="location.replace('<%= request.getContextPath() %>/enrollMember')">
