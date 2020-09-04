@@ -48,7 +48,8 @@ public class MemberViewServlet extends HttpServlet {
 			m.setEmail(AESCrypto.decrypt(email));
 			m.setPhone(AESCrypto.decrypt(phone));
 		} catch (Exception e) {
-			e.printStackTrace();
+			m.setEmail(email);
+			m.setPhone(phone);
 		}
 		
 		request.setAttribute("member", m);
