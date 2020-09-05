@@ -62,14 +62,16 @@
     <div class="row">
         <div class="col-sm"></div>
         <div class="col-sm">
+            <a href="<%= request.getContextPath()%>">
             <img src="<%=request.getContextPath()%>/img/logo.png" alt="" width="300em" height="300em">
+            </a>
             <div id="loginForm">
-            <form action="<%=request.getContextPath()%>/enrollMember">
+            <form action="<%=request.getContextPath()%>/loginMember" method="post">
                 <div class="input-group mb-2">
-                <input type="text" class="form-control" name="userId" id="" placeholder="ID"><br>
+                <input type="text" class="form-control" name="userId" placeholder="ID"><br>
             </div>
             <div class="input-group mb-2">
-                <input type="text" class="form-control" name="password" id="" placeholder="Password"><br>
+                <input type="password" class="form-control" name="password" placeholder="Password"><br>
             </div>
             <button class="btn btn-primary" id="loginBtn" type="submit">로그인</button>
             </form>

@@ -31,7 +31,7 @@
             }
             #blank {
                 width: 100%;
-                height: 2rem;
+                height: 1rem;
             }
             .col-sm {
                 height: 40rem;
@@ -39,6 +39,7 @@
             }
             #loginBtn {
                 width: 24em;
+                height: 3em;
                 background-color: #735020;
                 border: 1px #735020 solid;
             }
@@ -63,6 +64,9 @@
             .genderBtn:focus {
                 background-color: #524737;
             }
+            .form-row {
+                margin-bottom: 1em;
+            }
         </style>
     </head>
     <body>
@@ -72,39 +76,62 @@
             <div class="col-sm">
                 <img src="<%= request.getContextPath() %>/img/logo.png" alt="" width="250em" height="250em">
                 <div id="loginForm">
-                    <form action="login.jsp">
-                        아이디
+                    <form action="<%= request.getContextPath() %>/enrollMember" method="post">
+                        <b>아이디</b>
                         <div class="input-group mb-2">
-                            <input type="text" class="form-control" name="userId" placeholder="@email.com"><br>
+                            <input type="text" class="form-control" name="userId" placeholder="@email.com" required><br>
                         </div>
-                        비밀번호
+                        <b>비밀번호</b>
                         <div class="input-group mb-2">
-                            <input type="password" class="form-control" name="userPw" placeholder=""><br>
+                            <input type="password" class="form-control" name="password" placeholder="" required><br>
                         </div>
-                        비밀번호 확인
+                        <b>비밀번호 확인</b>
                         <div class="input-group mb-2">
-                            <input type="password" class="form-control" name="userPw" placeholder=""><br>
-                        </div>
-                        이름
+                            <input type="password" class="form-control" name="password" placeholder=""><br>
+                        </div><br>
+                        <!-- 추후 keyup을 활용해서 비밀번호를 확인할 예정 -->
+                        <b>이름</b>
                         <div class="input-group mb-2">
-                            <input type="text" class="form-control" name="userName"><br>
+                            <input type="text" class="form-control" name="userName" required>
                         </div>
-                        성별
-                        <div class="form-group">
-                            <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-primary active genderBtn">
-                                    <input
-                                        type="radio"
-                                        name="userGender"
-                                        autocomplete="off"
-                                        value="남자"
-                                        checked="checked">남자
-                                </label>
-                                <label class="btn btn-primary genderBtn">
-                                    <input type="radio" name="userGender" id="" autocomplete="off" value="여자">여자
-                                </label>
+                        <b>생년월일</b>
+                        <div class="form-row">
+                            <div class="input-group col-md-4" >
+                                <input type="text" class="form-control" name="birthYear" maxlength="4" placeholder="년(4자)" required>
+                            </div>
+                            <div class="input-group col-md-4">
+                                <select name="birthMonth" id = "inputState" class = "form-control"> 
+                                    <option selected="selected">월</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                            <div class="input-group col-md-4" >
+                                <input type="text" class="form-control" name="birthDate" maxlength="2" placeholder="일" required>
                             </div>
                         </div>
+                    <b>성별</b>
+                    <div class="form-group">
+                        <select name="gender" id = "inputState" class = "form-control"> 
+                            <option selected="selected">성별</option>
+                            <option value="M">남자</option>
+                            <option value="F">여자</option>
+                        </select>
+                    </div>
+                    <b>휴대전화</b>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="phone" maxlength="11" placeholder="01012345678">
+                    </div>
                         <button class="btn btn-primary" id="loginBtn" type="submit">가입하기</button>
                     </form>
                 </div>

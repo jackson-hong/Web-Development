@@ -1,30 +1,28 @@
 package com.onebyn.member.conroller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.onebyn.member.model.vo.Member;
 import com.onebyn.member.service.MemberService;
 
 /**
- * Servlet implementation class EnrollMemberServlet
+ * Servlet implementation class LoginMemberServlet
  */
-@WebServlet("/enrollMember")
-public class EnrollMemberServlet extends HttpServlet {
+@WebServlet("/loginMember")
+public class LoginMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EnrollMemberServlet() {
+    public LoginMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,19 +32,23 @@ public class EnrollMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//회원가입 서블릿
-		Member m = new Member();
-		m.setUserId(request.getParameter("userId"));
-		m.setPassword(request.getParameter("password"));
-		m.setUserName(request.getParameter("userName"));
-		m.setGender(request.getParameter("gender"));
-		m.setPhone(request.getParameter("phone"));
-		m.setBirthDate(toBirthDate(request.getParameter("birthYear"), 
-				request.getParameter("birthMonth"), 
-				request.getParameter("birthDate")));
+		// 로그인 서블릿
+		String userId = request.getParameter("userId");
+		String password = request.getParameter("password");
 		
-		int result = new MemberService().enrollMember(m);
+		Member m = new MemberService().loginMember(userId, password);
 		
+		if(m!=null) {
+		HttpSession session = request.getSession();
+		session.setAttribute("member", m);
+		request.getRequestDispatcher(request.getContextPath());
+		} else {
+			String msg = "아이디나 비밀번호가 틀립니다.";
+			String loc = "/views/member/login.jsp";
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -56,17 +58,4 @@ public class EnrollMemberServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
-	//birthDate 만드는 메소드
-	private Date toBirthDate(String bYear, String bMonth, String bDate) {
-		Date date = null;
-		String collected = bYear + "/" + bMonth + "/" + bDate;
-		try {
-			date = new SimpleDateFormat("yyyy/MM/dd").parse(collected);
-		} catch(ParseException e) {
-			e.printStackTrace();
-		}
-		return date;
-	}
-
 }
