@@ -44,9 +44,20 @@ public class EnrollMemberServlet extends HttpServlet {
 		m.setBirthDate(toBirthDate(request.getParameter("birthYear"), 
 				request.getParameter("birthMonth"), 
 				request.getParameter("birthDate")));
-		
 		int result = new MemberService().enrollMember(m);
-		
+		String msg = "";
+		String loc = "";
+		if(result > 0) {
+			msg = "가입에 성공했습니다!";
+			loc = "/";
+			request.setAttribute("member", m);
+		}else {
+			msg = "가입에 실패했습니다.";
+			loc = "/views/member/enrollMember.jsp";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 
 	/**
@@ -68,5 +79,4 @@ public class EnrollMemberServlet extends HttpServlet {
 		}
 		return date;
 	}
-
 }

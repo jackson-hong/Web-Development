@@ -1,7 +1,6 @@
 package com.onebyn.member.conroller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,20 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.onebyn.member.model.vo.Member;
-import com.onebyn.member.service.MemberService;
-
 /**
- * Servlet implementation class LoginMemberServlet
+ * Servlet implementation class LogoutMemberServlet
  */
-@WebServlet("/loginMember")
-public class LoginMemberServlet extends HttpServlet {
+@WebServlet("/logoutMember")
+public class LogoutMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginMemberServlet() {
+    public LogoutMemberServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +28,13 @@ public class LoginMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// 로그인 서블릿
-		String userId = request.getParameter("userId");
-		String password = request.getParameter("password");
-		
-		Member m = new MemberService().loginMember(userId, password);
-		
-		if(m!=null) {
 		HttpSession session = request.getSession();
-		session.setAttribute("member", m);
-		request.getRequestDispatcher("/").forward(request, response);;
-		} else {
-			String msg = "아이디나 비밀번호가 틀립니다.";
-			String loc = "/views/member/login.jsp";
-			request.setAttribute("msg", msg);
-			request.setAttribute("loc", loc);
-			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-		}
+		session.invalidate();
+		String msg = "정상적으로 로그아웃 되었습니다";
+		String loc = "/";
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 
 	/**
@@ -58,4 +44,5 @@ public class LoginMemberServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }

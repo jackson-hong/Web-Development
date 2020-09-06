@@ -7,7 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Properties;
+import java.sql.Date;
 
 import com.onebyn.member.model.vo.Member;
 
@@ -49,22 +52,44 @@ public class MemberDao {
 	
 	public int enrollMember(Connection conn, Member m) {
 		PreparedStatement pstmt = null;
-		int result;
+		int result = 0;
 		try {
 			String sql = prop.getProperty("enrollMember");
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, m.getUserId());
 			pstmt.setString(2, m.getPassword());
 			pstmt.setString(3, m.getUserName());
-			pstmt.setDate(4, m.getBirthDate());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			pstmt.setDate(4, new Date(m.getBirthDate().getTime()));
 			//util date -> sql date
-			pstmt.setString(1, m.getUserId());
-			pstmt.setString(1, m.getUserId());
-			pstmt.setString(1, m.getUserId());
+			pstmt.setString(5, m.getGender());
+			pstmt.setString(6, m.getPhone());
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		return result;
+	}
+	
+	public int updateMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			String sql = prop.getProperty("updateMember");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, m.getPassword());
+			pstmt.setString(2, m.getPhone());
+			pstmt.setString(3, m.getUserId());
+			result = pstmt.executeUpdate();
+		} catch(SQLException e){
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 	private Member setMember(ResultSet rs) {
