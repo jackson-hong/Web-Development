@@ -1,4 +1,4 @@
-package com.kh.member.common.filter;
+package com.kh.common.filter;
 
 import java.io.IOException;
 

@@ -77,6 +77,15 @@ div#search-gender {
 			</form>
 		</div>
 	</div>
+	<div id="numberPage-container">
+		<form id="numberPageFrm" action="">
+			<select>
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="15">15</option>
+			</select>
+		</form>
+	</div>
 	<table id="tbl-member">
 		<thead>
 			<tr>
@@ -112,6 +121,9 @@ div#search-gender {
 			%>
 		</tbody>
 	</table>
+	<div id="pageBar">
+		<%= request.getAttribute("pageBar") %>
+	</div>
 </section>
 <script>
 $(function(){

@@ -1,4 +1,4 @@
-package com.kh.member.common.filter;
+package com.kh.common.filter;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
