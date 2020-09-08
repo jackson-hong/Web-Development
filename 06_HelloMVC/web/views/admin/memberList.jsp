@@ -40,6 +40,13 @@ div#search-userName {
 div#search-gender {
 	display: none;
 }
+div#numberPage-container {
+	float:right;
+}
+form#numberPageFrm {
+	display:inline;
+}
+
 </style>
 <section id="memberList-container">
 	<!-- 페이지 구성 -> 서버에서 보내준 members데이터를 table태그에 넣어서 출력하는 페이지 -->
@@ -78,8 +85,9 @@ div#search-gender {
 		</div>
 	</div>
 	<div id="numberPage-container">
-		<form id="numberPageFrm" action="">
-			<select>
+		<form id="numberPageFrm" action="<%= request.getContextPath() %>/admin/memberList">
+			<input type="hidden" name="cPage" value='<%= request.getParameter("cPage")%>'>
+			<select name="numPerPage" id="numPerPage">
 				<option value="5">5</option>
 				<option value="10">10</option>
 				<option value="15">15</option>
@@ -106,7 +114,9 @@ div#search-gender {
 				for (Member m : list) {
 			%>
 			<tr>
-				<td><%=m.getUserId()%></td>
+			
+				<td><a href="<%= request.getContextPath() %>/admin/memberOne?userId=<%=m.getUserId()%>">
+				<%=m.getUserId()%></a></td>
 				<td><%=m.getUserName()%></td>
 				<td><%=m.getGender()%></td>
 				<td><%=m.getAge()%></td>
@@ -116,6 +126,7 @@ div#search-gender {
 				<td><%=m.getHobby()%></td>
 				<td><%=m.getEnrollDate()%></td>
 			</tr>
+			
 			<%
 				}
 			%>
@@ -140,6 +151,9 @@ $(function(){
 		$("#search-"+value).css("display","inline-block");
 	});
 	$("#searchType").change();
+	$("#numPerPage").change(e=>{
+		$("#numberPageFrm").submit();
+	});
 })
 </script>
 

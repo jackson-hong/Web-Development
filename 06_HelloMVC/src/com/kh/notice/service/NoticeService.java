@@ -26,4 +26,18 @@ public class NoticeService {
 		close(conn);
 		return count;
 	}
+	
+	public Notice noticePage(String noticeNo) {
+		Connection conn = getConnection();
+		Notice n = dao.noticePage(conn, noticeNo);
+		close(conn);
+		return n;
+	}
+	
+	public int noticeWrite(Notice n) {
+		Connection conn = getConnection();
+		int result = dao.noticeWrite(conn, n);
+		close(conn);
+		return result;
+	}
 }

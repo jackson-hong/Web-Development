@@ -47,7 +47,10 @@ public class AdminMemberListServlet extends HttpServlet {
 		}
 		// 페이지당 데이터 수 : numPerPage -> 한개 페이지에서 보여줄 데이터 수
 		int numPerPage = 5;
-
+		if(request.getParameter("numPerPage")!=null) {
+			numPerPage = Integer.parseInt(request.getParameter("numPerPage"));
+		}
+		System.out.println(numPerPage);
 		// 1p : 1 ~ 5 rnum의 데이터
 		// 2p : 6 ~ 10
 		// 3p : 11 ~ 15

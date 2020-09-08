@@ -78,4 +78,52 @@ public class NoticeDao {
 		}
 		return count;
 	}
+	
+	public Notice noticePage(Connection conn, String noticeNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Notice n = new Notice();
+		String sql = prop.getProperty("noticePage");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, noticeNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				n.setNoticeTitle(rs.getNString("NOTICE_TITLE"));
+				n.setNoticeWriter(rs.getNString("NOTICE_WRITER"));
+				n.setNoticeContent(rs.getNString("NOTICE_CONTENT"));
+				n.setNoticeNo(rs.getInt("NOTICE_NO"));
+				n.setNoticeDate(rs.getDate("NOTICE_DATE"));
+				n.setFilepath(rs.getNString("FILEPATH"));
+				n.setStatus(rs.getString("STATUS"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return n;
+	}
+	public int noticeWrite(Connection conn, Notice n) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("noticeWrite");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, n.getNoticeTitle());
+			pstmt.setString(2, n.getNoticeWriter());
+			pstmt.setString(3, n.getNoticeContent());
+			pstmt.setString(4, n.getFilepath());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

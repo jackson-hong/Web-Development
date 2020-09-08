@@ -134,4 +134,34 @@ public class AdminDao {
 		}
 		return count;
 	}
+	
+	public Member searchMember(Connection conn, String userId) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = new Member();
+		try {
+			String sql = prop.getProperty("searchMember");
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				m.setUserId(rs.getString("userid"));
+				m.setPassword(rs.getString("password"));
+				m.setUserName(rs.getString("username"));
+				m.setAge(rs.getInt("age"));
+				m.setGender(rs.getString("gender"));
+				m.setEmail(rs.getString("email"));
+				m.setPhone(rs.getString("phone"));
+				m.setAddress(rs.getString("address"));
+				m.setHobby(rs.getString("hobby"));
+				m.setEnrollDate(rs.getDate("enrolldate"));
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
 }

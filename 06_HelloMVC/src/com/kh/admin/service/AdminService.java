@@ -42,4 +42,11 @@ private AdminDao dao=new AdminDao();
 		close(conn);
 		return count;
 	}
+	
+	public Member searchMember(String userId) {
+		Connection conn = getConnection();
+		Member m = dao.searchMember(conn, userId);
+		close(conn);
+		return m;
+	}
 }
