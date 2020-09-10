@@ -19,7 +19,9 @@
             <th>첨부파일</th>
             <td>
            	<% if(n.getFilepath()!=null) {%>
-           	<img src="<%=n.getFilepath() %>" width="20" height="20">
+           	<a href="<%= request.getContextPath() %>/notice/noticeFileDownload?fname=<%= n.getFilepath() %>">
+           	<img src="<%=request.getContextPath() %>/images/file.png" width="20" height="20">
+           	</a>
            	<% }else{ %>
            	No file <%} %>
             </td>
@@ -30,8 +32,10 @@
         </tr>
         <tr>
             <th colspan="2">
-                <input type="button" value="수정하기" onclick="">
-                <input type="button" value="삭제하기" onclick="">
+                <input type="button" value="수정하기" 
+                onclick="location.assign('<%= request.getContextPath() %>/views/notice/noticeModify.jsp')">
+                <input type="button" value="삭제하기" 
+                onclick="location.assign('<%= request.getContextPath() %>/notice/deleteNotice?noticeNo=<%= n.getNoticeNo() %>')">
             </th>
         </tr>
     </table>

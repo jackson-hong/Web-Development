@@ -73,7 +73,8 @@ if (cookies != null) {
 						onclick="location.href='<%=request.getContextPath()%>/memberView?userId=<%=logginedMember.getUserId()%>'">
 					</td>
 					<td><input type="button" value="로그아웃"
-						onclick="location.replace('<%=request.getContextPath()%>/logout');">
+						<%-- onclick="location.replace('<%=request.getContextPath()%>/logout');"> --%>
+						onclick="logout();">
 					</td>
 				</tr>
 			</table>
@@ -85,7 +86,7 @@ if (cookies != null) {
 			<ul class="main-nav">
 				<li class="home"><a href="#">Home</a></li>
 				<li id="notice"><a href="<%=request.getContextPath()%>/notice/noticeList">공지사항</a></li>
-				<li id="board"><a href="#">게시판</a></li>
+				<li id="board"><a href="<%= request.getContextPath()%>/board/boardList">게시판</a></li>
 				<!-- 관리자페이지에 대한 nab를 설정 -->
 				<% if(logginedMember != null && logginedMember.getUserId().equals("admin")){ %>
 				<li id="admin-member"><a href="<%=request.getContextPath()%>/admin/memberList">회원관리</a></li>
@@ -110,5 +111,8 @@ if (cookies != null) {
 				$("#password").focus();
 				return false;
 			}
+		}
+		function logout(){
+			location.replace("<%=request.getContextPath()%>/logout");
 		}
 	</script>

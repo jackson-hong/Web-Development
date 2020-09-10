@@ -82,10 +82,23 @@ public class NoticeWriteEndServlet extends HttpServlet {
 		n.setNoticeContent(mr.getParameter("content"));
 		//파일에 대한 정보를 가져올때
 		String filePath = mr.getFilesystemName("upfile");
-		n.setFilepath(mr.getParameter("file"));
+		n.setFilepath(filePath);
 		int result = new NoticeService().noticeWrite(n);
 		
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		String msg="";
+		String loc="";
+		
+		if(result>0) {
+			msg="공지사항 등록 성공!";
+			loc="/notice/noticeList";
+		}else {
+			msg="공지사항 등록 실패!";
+			loc="/notice/noticeWrite";
+		}
+		request.setAttribute("msg",msg);
+		request.setAttribute("loc",loc);
+		request.getRequestDispatcher("/views/common/msg.jsp")
+		.forward(request, response);
 	}
 
 	/**
