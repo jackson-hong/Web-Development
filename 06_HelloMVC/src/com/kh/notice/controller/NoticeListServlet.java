@@ -61,6 +61,7 @@ public class NoticeListServlet extends HttpServlet {
 			if(cPage == pageNo) {
 				pageBar += "<span>" + pageNo + "</span>";
 			}else {
+				
 			}
 			pageNo++;
 		}

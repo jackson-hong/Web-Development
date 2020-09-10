@@ -3,20 +3,20 @@
 <%@ page import="com.kh.member.model.vo.Member"%>
 <%@ page import="com.kh.common.listener.LoginCheckListener"%>
 <%
-	/* request 객체에서 값 가져오기 */
-Member logginedMember = (Member) session.getAttribute("logginedMember");
-int connectCount = LoginCheckListener.getConnectCount();
-//쿠키값 받아오기!
-Cookie[] cookies = request.getCookies();
-String saveId = null;
-if (cookies != null) {
-	for (Cookie c : cookies) {
-		if (c.getName().equals("saveId")) {
-	saveId = c.getValue();
-	break;
+		/* request 객체에서 값 가져오기 */
+	Member logginedMember = (Member) session.getAttribute("logginedMember");
+	int connectCount = LoginCheckListener.getConnectCount();
+	//쿠키값 받아오기!
+	Cookie[] cookies = request.getCookies();
+	String saveId = null;
+	if (cookies != null) {
+		for (Cookie c : cookies) {
+			if (c.getName().equals("saveId")) {
+		saveId = c.getValue();
+		break;
+			}
 		}
 	}
-}
 %>
 <!DOCTYPE html>
 <html>
